@@ -34,9 +34,9 @@ a {
 }
 
 h1 {
-    font-size: 30px;
-    font-weight: 700;
-    line-height: 1;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 40px;
 }
 
 h3 {
@@ -59,7 +59,7 @@ label {
 
 label.required::after {
     content: " *";
-    color: red;
+    color: #ef4444;
 }
 
 button {
@@ -85,7 +85,7 @@ nav {
     height: 80px;
     z-index: 666;
     margin: 0 auto;
-    padding: 0 24px;
+    padding: 0 20px;
     background-color: #fff;
 }
 
@@ -95,7 +95,8 @@ form {
     flex-direction: column;
     width: 360px;
     height: auto;
-    padding: 0 24px;
+    gap: 40px;
+    padding: 40px 20px;
     margin-bottom: 80px;
 }
 
@@ -144,7 +145,6 @@ form {
     display: flex;
     align-items: stretch;
     flex-direction: column;
-    padding: 40px 0;
     gap: 30px;
 }
 
@@ -193,6 +193,10 @@ form {
     border-radius: 50%;
     background-color: #eee;
     transition: all .3s ease;
+}
+
+.option:active {
+    background-color: transparent;
 }
 
 .option:hover {
