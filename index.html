@@ -14,10 +14,9 @@
                 <h3>Interest</h3>
                 <p>Choose what you’re looking for today.</p>
             </div>
-            <div class="options">
-                <button class="option" data-value="mort" data-next="mort_type">Mortgage</button>
-                <button class="option" data-value="homesvc" data-next="homesvc_type">Home services</button>
-                <button class="option" data-value="other" data-next="">Something else</button>
+            <div class="choose" data-group>
+                <button type="button" class="option active" data-value="mort" data-next="mort_type">Mortgage</button>
+                <button type="button" class="option" data-value="homesvc" data-next="homesvc_type">Home services</button>
             </div>
         </div>
 
@@ -26,14 +25,11 @@
                 <h3>Mortgage product</h3>
                 <p>Pick one or more mortgage products.</p>
             </div>
-            <div class="options">
-                <button class="option" data-select="multi" data-value="refi">Refinance</button>
-                <button class="option" data-select="multi" data-value="purchase">Home Purchase</button>
-                <button class="option" data-select="multi" data-value="equity">Home Equity</button>
+            <div class="choose" data-group data-choice="multiple">
+                <button type="button" class="option" data-value="refi">Refinance</button>
+                <button type="button" class="option" data-value="purchase">Home Purchase</button>
+                <button type="button" class="option" data-value="equity">Home Equity</button>
             </div>
-            <nav class="question-nav">
-                <button class="action" data-next="persona">Continue</button>
-            </nav>
         </div>
 
         <div class="question" id="persona" data-show="prod=mort">
@@ -41,9 +37,9 @@
                 <h3>You are</h3>
                 <p>Tell us who you represent so we can tailor the flow.</p>
             </div>
-            <div class="options">
-                <button class="option" data-value="lender" data-next="scope">Lender / Mortgage Broker</button>
-                <button class="option" data-value="proxy" data-next="agency">On behalf of a Lender / Mortgage Broker</button>
+            <div class="choose" data-group>
+                <button type="button" class="option" data-value="lender" data-next="scope">Lender / Mortgage Broker</button>
+                <button type="button" class="option" data-value="proxy" data-next="agency">On behalf</button>
             </div>
         </div>
 
@@ -52,9 +48,9 @@
                 <h3>Agency role</h3>
                 <p>How your company is engaged with the lender.</p>
             </div>
-            <div class="options">
-                <button class="option" data-value="aor" data-next="buyer">Agency of Record</button>
-                <button class="option" data-value="reseller" data-next="buyer">Reseller</button>
+            <div class="choose" data-group>
+                <button type="button" class="option" data-value="aor" data-next="buyer">Agency of Record</button>
+                <button type="button" class="option" data-value="reseller" data-next="buyer">Reseller</button>
             </div>
         </div>
 
@@ -63,9 +59,9 @@
                 <h3>Buying for</h3>
                 <p>Who will work the leads?</p>
             </div>
-            <div class="options">
-                <button class="option" data-value="ind" data-next="pii_agency">Individual</button>
-                <button class="option" data-value="team" data-next="team_proxy">Team</button>
+            <div class="choose" data-group>
+                <button type="button" class="option" data-value="ind" data-next="pii_agency">Individual</button>
+                <button type="button" class="option" data-value="team" data-next="team_proxy">Team</button>
             </div>
         </div>
 
@@ -74,9 +70,9 @@
                 <h3>Buyer scope</h3>
                 <p>Tell us if this is just for you or your team.</p>
             </div>
-            <div class="options">
-                <button class="option" data-value="self" data-next="sales_self">Myself</button>
-                <button class="option" data-value="team" data-next="team">My Team</button>
+            <div class="choose" data-group>
+                <button type="button" class="option" data-value="self" data-next="sales_self">Myself</button>
+                <button type="button" class="option" data-value="team" data-next="team">My Team</button>
             </div>
         </div>
 
@@ -85,9 +81,9 @@
                 <h3>Sales model</h3>
                 <p>Choose the structure that matches your operation.</p>
             </div>
-            <div class="options">
-                <button class="option" data-value="broker" data-next="leads_self">Mortgage Broker</button>
-                <button class="option" data-value="retail" data-next="lender_self">Retail Branch</button>
+            <div class="choose" data-group>
+                <button type="button" class="option" data-value="broker" data-next="leads_self">Mortgage Broker</button>
+                <button type="button" class="option" data-value="retail" data-next="lender_self">Retail Branch</button>
             </div>
         </div>
 
@@ -96,10 +92,10 @@
                 <h3>Team type</h3>
                 <p>Select the team structure.</p>
             </div>
-            <div class="options">
-                <button class="option" data-value="corp" data-next="lo_corp">Corporate</button>
-                <button class="option" data-value="branch" data-next="lo_branch">Branch</button>
-                <button class="option" data-value="net_branch" data-next="lo_branch">Net Branch</button>
+            <div class="choose" data-group>
+                <button type="button" class="option" data-value="corp" data-next="lo_corp">Corporate</button>
+                <button type="button" class="option" data-value="branch" data-next="lo_branch">Branch</button>
+                <button type="button" class="option" data-value="net_branch" data-next="lo_branch">Net Branch</button>
             </div>
         </div>
 
@@ -108,12 +104,12 @@
                 <h3>LOs on team</h3>
                 <p>Approximate count of active LOs.</p>
             </div>
-            <div class="options">
-                <button class="option" data-value="2_3" data-next="sales_branch">2–3</button>
-                <button class="option" data-value="4_6" data-next="sales_branch">4–6</button>
-                <button class="option" data-value="7_9" data-next="sales_branch">7–9</button>
-                <button class="option" data-value="10_19" data-next="sales_branch">10–19</button>
-                <button class="option" data-value="20_plus" data-next="sales_branch">20+</button>
+            <div class="choose" data-group>
+                <button type="button" class="option" data-value="2_3" data-next="sales_branch">2–3</button>
+                <button type="button" class="option" data-value="4_6" data-next="sales_branch">4–6</button>
+                <button type="button" class="option" data-value="7_9" data-next="sales_branch">7–9</button>
+                <button type="button" class="option" data-value="10_19" data-next="sales_branch">10–19</button>
+                <button type="button" class="option" data-value="20_plus" data-next="sales_branch">20+</button>
             </div>
         </div>
 
@@ -122,10 +118,10 @@
                 <h3>Sales model</h3>
                 <p>Pick the model used by this team.</p>
             </div>
-            <div class="options">
-                <button class="option" data-value="broker" data-next="leads_branch_b">Mortgage Broker</button>
-                <button class="option" data-value="retail" data-next="lender_branch">Retail Branch</button>
-                <button class="option" data-value="direct" data-next="lender_branch">Consumer Direct</button>
+            <div class="choose" data-group>
+                <button type="button" class="option" data-value="broker" data-next="leads_branch_b">Mortgage Broker</button>
+                <button type="button" class="option" data-value="retail" data-next="lender_branch">Retail Branch</button>
+                <button type="button" class="option" data-value="direct" data-next="lender_branch">Consumer Direct</button>
             </div>
         </div>
 
@@ -134,12 +130,12 @@
                 <h3>LOs on team</h3>
                 <p>Approximate count of active LOs.</p>
             </div>
-            <div class="options">
-                <button class="option" data-value="2_3" data-next="sales_corp">2–3</button>
-                <button class="option" data-value="4_6" data-next="sales_corp">4–6</button>
-                <button class="option" data-value="7_9" data-next="sales_corp">7–9</button>
-                <button class="option" data-value="10_19" data-next="sales_corp">10–19</button>
-                <button class="option" data-value="20_plus" data-next="sales_corp">20+</button>
+            <div class="choose" data-group>
+                <button type="button" class="option" data-value="2_3" data-next="sales_corp">2–3</button>
+                <button type="button" class="option" data-value="4_6" data-next="sales_corp">4–6</button>
+                <button type="button" class="option" data-value="7_9" data-next="sales_corp">7–9</button>
+                <button type="button" class="option" data-value="10_19" data-next="sales_corp">10–19</button>
+                <button type="button" class="option" data-value="20_plus" data-next="sales_corp">20+</button>
             </div>
         </div>
 
@@ -148,10 +144,10 @@
                 <h3>Sales model</h3>
                 <p>Pick the model used by your organization.</p>
             </div>
-            <div class="options">
-                <button class="option" data-value="broker" data-next="leads_corp_b">Mortgage Broker</button>
-                <button class="option" data-value="retail" data-next="lender_corp">Retail Branch</button>
-                <button class="option" data-value="direct" data-next="lender_corp">Consumer Direct</button>
+            <div class="choose" data-group>
+                <button type="button" class="option" data-value="broker" data-next="leads_corp_b">Mortgage Broker</button>
+                <button type="button" class="option" data-value="retail" data-next="lender_corp">Retail Branch</button>
+                <button type="button" class="option" data-value="direct" data-next="lender_corp">Consumer Direct</button>
             </div>
         </div>
 
@@ -160,9 +156,9 @@
                 <h3>Team type</h3>
                 <p>How is the lender’s team structured?</p>
             </div>
-            <div class="options">
-                <button class="option" data-value="corp" data-next="sales_proxy">Corporate</button>
-                <button class="option" data-value="branch" data-next="sales_proxy">Branch</button>
+            <div class="choose" data-group>
+                <button type="button" class="option" data-value="corp" data-next="sales_proxy">Corporate</button>
+                <button type="button" class="option" data-value="branch" data-next="sales_proxy">Branch</button>
             </div>
         </div>
 
@@ -171,10 +167,10 @@
                 <h3>Lender model</h3>
                 <p>Pick the model used by the lender you represent.</p>
             </div>
-            <div class="options">
-                <button class="option" data-value="broker" data-next="lo_proxy">Mortgage Broker</button>
-                <button class="option" data-value="retail" data-next="lo_proxy">Retail Branch</button>
-                <button class="option" data-value="direct" data-next="lo_proxy">Consumer Direct</button>
+            <div class="choose" data-group>
+                <button type="button" class="option" data-value="broker" data-next="lo_proxy">Mortgage Broker</button>
+                <button type="button" class="option" data-value="retail" data-next="lo_proxy">Retail Branch</button>
+                <button type="button" class="option" data-value="direct" data-next="lo_proxy">Consumer Direct</button>
             </div>
         </div>
 
@@ -183,12 +179,12 @@
                 <h3>LOs on team</h3>
                 <p>Approximate count of active LOs.</p>
             </div>
-            <div class="options">
-                <button class="option" data-value="2_3" data-next="pii_agency">2–3</button>
-                <button class="option" data-value="4_6" data-next="pii_agency">4–6</button>
-                <button class="option" data-value="7_9" data-next="pii_agency">7–9</button>
-                <button class="option" data-value="10_19" data-next="pii_agency">10–19</button>
-                <button class="option" data-value="20_plus" data-next="pii_agency">20+</button>
+            <div class="choose" data-group>
+                <button type="button" class="option" data-value="2_3" data-next="pii_agency">2–3</button>
+                <button type="button" class="option" data-value="4_6" data-next="pii_agency">4–6</button>
+                <button type="button" class="option" data-value="7_9" data-next="pii_agency">7–9</button>
+                <button type="button" class="option" data-value="10_19" data-next="pii_agency">10–19</button>
+                <button type="button" class="option" data-value="20_plus" data-next="pii_agency">20+</button>
             </div>
         </div>
 
@@ -197,9 +193,9 @@
                 <h3>Buying leads?</h3>
                 <p>Your current acquisition programs, if any.</p>
             </div>
-            <div class="options">
-                <button class="option" data-value="no" data-next="prev_self">No</button>
-                <button class="option" data-value="yes" data-next="pii_self">Yes</button>
+            <div class="choose" data-group>
+                <button type="button" class="option" data-value="no" data-next="prev_self">No</button>
+                <button type="button" class="option" data-value="yes" data-next="pii_self">Yes</button>
             </div>
         </div>
 
@@ -208,9 +204,9 @@
                 <h3>Buying leads?</h3>
                 <p>For your branch or net branch team.</p>
             </div>
-            <div class="options">
-                <button class="option" data-value="no" data-next="prev_branch">No</button>
-                <button class="option" data-value="yes" data-next="pii_branch">Yes</button>
+            <div class="choose" data-group>
+                <button type="button" class="option" data-value="no" data-next="prev_branch">No</button>
+                <button type="button" class="option" data-value="yes" data-next="pii_branch">Yes</button>
             </div>
         </div>
 
@@ -219,9 +215,9 @@
                 <h3>Buying leads?</h3>
                 <p>For your corporate org.</p>
             </div>
-            <div class="options">
-                <button class="option" data-value="no" data-next="prev_corp">No</button>
-                <button class="option" data-value="yes" data-next="pii_corp">Yes</button>
+            <div class="choose" data-group>
+                <button type="button" class="option" data-value="no" data-next="prev_corp">No</button>
+                <button type="button" class="option" data-value="yes" data-next="pii_corp">Yes</button>
             </div>
         </div>
 
@@ -230,14 +226,14 @@
                 <h3>Lender type</h3>
                 <p>Select the closest fit.</p>
             </div>
-            <div class="options">
-                <button class="option" data-value="banker" data-next="leads_self_nb">Mortgage Banker</button>
-                <button class="option" data-value="corr" data-next="leads_self_nb">Correspondent</button>
-                <button class="option" data-value="mini_corr" data-next="leads_self_nb">Mini Correspondent</button>
-                <button class="option" data-value="portfolio" data-next="leads_self_nb">Portfolio</button>
-                <button class="option" data-value="federal" data-next="leads_self_nb">Federally Chartered</button>
-                <button class="option" data-value="wholesale" data-next="leads_self_nb">Wholesale</button>
-                <button class="option" data-value="other" data-next="leads_self_nb">Other</button>
+            <div class="choose" data-group>
+                <button type="button" class="option" data-value="banker" data-next="leads_self_nb">Mortgage Banker</button>
+                <button type="button" class="option" data-value="corr" data-next="leads_self_nb">Correspondent</button>
+                <button type="button" class="option" data-value="mini_corr" data-next="leads_self_nb">Mini Correspondent</button>
+                <button type="button" class="option" data-value="portfolio" data-next="leads_self_nb">Portfolio</button>
+                <button type="button" class="option" data-value="federal" data-next="leads_self_nb">Federally Chartered</button>
+                <button type="button" class="option" data-value="wholesale" data-next="leads_self_nb">Wholesale</button>
+                <button type="button" class="option" data-value="other" data-next="leads_self_nb">Other</button>
             </div>
         </div>
 
@@ -246,9 +242,9 @@
                 <h3>Buying leads?</h3>
                 <p>Your current acquisition programs, if any.</p>
             </div>
-            <div class="options">
-                <button class="option" data-value="yes" data-next="pii_self">Yes</button>
-                <button class="option" data-value="no" data-next="prev_self">No</button>
+            <div class="choose" data-group>
+                <button type="button" class="option" data-value="yes" data-next="pii_self">Yes</button>
+                <button type="button" class="option" data-value="no" data-next="prev_self">No</button>
             </div>
         </div>
 
@@ -257,14 +253,14 @@
                 <h3>Lender type</h3>
                 <p>Select the closest fit.</p>
             </div>
-            <div class="options">
-                <button class="option" data-value="banker" data-next="leads_branch_nb">Mortgage Banker</button>
-                <button class="option" data-value="corr" data-next="leads_branch_nb">Correspondent</button>
-                <button class="option" data-value="mini_corr" data-next="leads_branch_nb">Mini Correspondent</button>
-                <button class="option" data-value="portfolio" data-next="leads_branch_nb">Portfolio</button>
-                <button class="option" data-value="federal" data-next="leads_branch_nb">Federally Chartered</button>
-                <button class="option" data-value="wholesale" data-next="leads_branch_nb">Wholesale</button>
-                <button class="option" data-value="other" data-next="leads_branch_nb">Other</button>
+            <div class="choose" data-group>
+                <button type="button" class="option" data-value="banker" data-next="leads_branch_nb">Mortgage Banker</button>
+                <button type="button" class="option" data-value="corr" data-next="leads_branch_nb">Correspondent</button>
+                <button type="button" class="option" data-value="mini_corr" data-next="leads_branch_nb">Mini Correspondent</button>
+                <button type="button" class="option" data-value="portfolio" data-next="leads_branch_nb">Portfolio</button>
+                <button type="button" class="option" data-value="federal" data-next="leads_branch_nb">Federally Chartered</button>
+                <button type="button" class="option" data-value="wholesale" data-next="leads_branch_nb">Wholesale</button>
+                <button type="button" class="option" data-value="other" data-next="leads_branch_nb">Other</button>
             </div>
         </div>
 
@@ -273,9 +269,9 @@
                 <h3>Buying leads?</h3>
                 <p>For your branch or net branch team.</p>
             </div>
-            <div class="options">
-                <button class="option" data-value="yes" data-next="pii_branch">Yes</button>
-                <button class="option" data-value="no" data-next="prev_branch">No</button>
+            <div class="choose" data-group>
+                <button type="button" class="option" data-value="yes" data-next="pii_branch">Yes</button>
+                <button type="button" class="option" data-value="no" data-next="prev_branch">No</button>
             </div>
         </div>
 
@@ -284,14 +280,14 @@
                 <h3>Lender type</h3>
                 <p>Select the closest fit.</p>
             </div>
-            <div class="options">
-                <button class="option" data-value="banker" data-next="leads_corp_nb">Mortgage Banker</button>
-                <button class="option" data-value="corr" data-next="leads_corp_nb">Correspondent</button>
-                <button class="option" data-value="mini_corr" data-next="leads_corp_nb">Mini Correspondent</button>
-                <button class="option" data-value="portfolio" data-next="leads_corp_nb">Portfolio</button>
-                <button class="option" data-value="federal" data-next="leads_corp_nb">Federally Chartered</button>
-                <button class="option" data-value="wholesale" data-next="leads_corp_nb">Wholesale</button>
-                <button class="option" data-value="other" data-next="leads_corp_nb">Other</button>
+            <div class="choose" data-group>
+                <button type="button" class="option" data-value="banker" data-next="leads_corp_nb">Mortgage Banker</button>
+                <button type="button" class="option" data-value="corr" data-next="leads_corp_nb">Correspondent</button>
+                <button type="button" class="option" data-value="mini_corr" data-next="leads_corp_nb">Mini Correspondent</button>
+                <button type="button" class="option" data-value="portfolio" data-next="leads_corp_nb">Portfolio</button>
+                <button type="button" class="option" data-value="federal" data-next="leads_corp_nb">Federally Chartered</button>
+                <button type="button" class="option" data-value="wholesale" data-next="leads_corp_nb">Wholesale</button>
+                <button type="button" class="option" data-value="other" data-next="leads_corp_nb">Other</button>
             </div>
         </div>
 
@@ -300,9 +296,9 @@
                 <h3>Buying leads?</h3>
                 <p>For your corporate org.</p>
             </div>
-            <div class="options">
-                <button class="option" data-value="yes" data-next="pii_corp">Yes</button>
-                <button class="option" data-value="no" data-next="prev_corp">No</button>
+            <div class="choose" data-group>
+                <button type="button" class="option" data-value="yes" data-next="pii_corp">Yes</button>
+                <button type="button" class="option" data-value="no" data-next="prev_corp">No</button>
             </div>
         </div>
 
@@ -311,9 +307,9 @@
                 <h3>Bought before?</h3>
                 <p>Past programs or trials.</p>
             </div>
-            <div class="options">
-                <button class="option" data-value="yes" data-next="pii_self">Yes</button>
-                <button class="option" data-value="no" data-next="pii_self">No</button>
+            <div class="choose" data-group>
+                <button type="button" class="option" data-value="yes" data-next="pii_self">Yes</button>
+                <button type="button" class="option" data-value="no" data-next="pii_self">No</button>
             </div>
         </div>
 
@@ -322,9 +318,9 @@
                 <h3>Bought before?</h3>
                 <p>For your branch team historically.</p>
             </div>
-            <div class="options">
-                <button class="option" data-value="yes" data-next="pii_branch">Yes</button>
-                <button class="option" data-value="no" data-next="pii_branch">No</button>
+            <div class="choose" data-group>
+                <button type="button" class="option" data-value="yes" data-next="pii_branch">Yes</button>
+                <button type="button" class="option" data-value="no" data-next="pii_branch">No</button>
             </div>
         </div>
 
@@ -333,9 +329,9 @@
                 <h3>Bought before?</h3>
                 <p>For your corporate org historically.</p>
             </div>
-            <div class="options">
-                <button class="option" data-value="yes" data-next="pii_corp">Yes</button>
-                <button class="option" data-value="no" data-next="pii_corp">No</button>
+            <div class="choose" data-group>
+                <button type="button" class="option" data-value="yes" data-next="pii_corp">Yes</button>
+                <button type="button" class="option" data-value="no" data-next="pii_corp">No</button>
             </div>
         </div>
 
@@ -479,10 +475,10 @@
                 <h3>Home service</h3>
                 <p>Select the category you’re interested in.</p>
             </div>
-            <div class="options">
-                <button class="option" data-value="solar">Solar</button>
-                <button class="option" data-value="purchase">Home Purchase</button>
-                <button class="option" data-value="equity">Home Equity</button>
+            <div class="choose" data-group>
+                <button type="button" class="option" data-value="solar">Solar</button>
+                <button type="button" class="option" data-value="purchase">Home Purchase</button>
+                <button type="button" class="option" data-value="equity">Home Equity</button>
             </div>
         </div>
         <nav>
@@ -493,4 +489,25 @@
         </nav>
     </form>
 </body>
+<script>
+
+function selectOptions(root = document) {
+    root.addEventListener('click', e => {
+        const opt = e.target.closest('.option');
+        if (!opt || !root.contains(opt)) return;
+        const grp = opt.closest('[data-group]') || opt.parentElement;
+        if (!grp) return;
+        const multi = grp.dataset.choice === 'multiple';
+        if (multi) {
+            opt.classList.toggle('active');
+        } else {
+            grp.querySelectorAll('.option.active').forEach(el => el !== opt && el.classList.remove('active'));
+            opt.classList.add('active');
+        }
+    });
+}
+
+selectOptions(document.getElementById('b2b'));
+
+</script>
 </html>

@@ -40,21 +40,21 @@ h1 {
 }
 
 h3 {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
-    line-height: 1.4;
+    line-height: 24px;
 }
 
 p {
     font-size: 14px;
     font-weight: 400;
-    line-height: 1.4;
+    line-height: 20px;
 }
 
 label {
     font-size: 12px;
     font-weight: 400;
-    line-height: 1.5;
+    line-height: 14px;
 }
 
 label.required::after {
@@ -145,7 +145,7 @@ form {
     align-items: stretch;
     flex-direction: column;
     padding: 40px 0;
-    gap: 20px;
+    gap: 30px;
 }
 
 .wrap {
@@ -155,7 +155,7 @@ form {
     gap: 4px;
 }
 
-.options {
+.choose {
     display: flex;
     align-items: stretch;
     flex-direction: column;
