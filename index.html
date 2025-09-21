@@ -5,54 +5,491 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>B2B Form</title>
     <link rel="stylesheet" href="main.css">
+    <script type="text/javascript" src="https://kit.fontawesome.com/4c9962e02c.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <form action="" class="">
-        <header class="headline">
-            <img class="preview" src="https://placehold.co/240x200" alt="preview">
-            <img class="icon" src="https://placehold.co/80x80" alt="icon">
-        </header>
-        <div class="question">
+    <form id="b2b" method="POST" action="#">
+        <div class="question" id="prod">
             <div class="wrap">
-                <h1>B2B Form</h1>
-                <p>Captures lead's contact info and profile organically via website or through online marketing call to action placements.</p>
-            </div>
-        </div>
-        <div class="question">
-            <div class="wrap">
-                <h3>Product interest</h3>
-                <p>I need...</p>
+                <h3>Interest</h3>
+                <p>Choose what you’re looking for today.</p>
             </div>
             <div class="options">
-                <button class="option active">Mortgage</button>
-                <button class="option">Home services</button>
-                <button class="option">Something else</button>
+                <button class="option" data-value="mort" data-next="mort_type">Mortgage</button>
+                <button class="option" data-value="homesvc" data-next="homesvc_type">Home services</button>
+                <button class="option" data-value="other" data-next="">Something else</button>
             </div>
         </div>
-        <div class="question">
+
+        <div class="question" id="mort_type" data-show="prod=mort">
             <div class="wrap">
-                <h3>Product interest</h3>
-                <p>I need...</p>
+                <h3>Mortgage product</h3>
+                <p>Pick one or more mortgage products.</p>
             </div>
             <div class="options">
-                <button class="option active">Mortgage</button>
-                <button class="option">Home services</button>
-                <button class="option">Something else</button>
+                <button class="option" data-select="multi" data-value="refi">Refinance</button>
+                <button class="option" data-select="multi" data-value="purchase">Home Purchase</button>
+                <button class="option" data-select="multi" data-value="equity">Home Equity</button>
+            </div>
+            <nav class="question-nav">
+                <button class="action" data-next="persona">Continue</button>
+            </nav>
+        </div>
+
+        <div class="question" id="persona" data-show="prod=mort">
+            <div class="wrap">
+                <h3>You are</h3>
+                <p>Tell us who you represent so we can tailor the flow.</p>
+            </div>
+            <div class="options">
+                <button class="option" data-value="lender" data-next="scope">Lender / Mortgage Broker</button>
+                <button class="option" data-value="proxy" data-next="agency">On behalf of a Lender / Mortgage Broker</button>
             </div>
         </div>
-        <div class="question">
+
+        <div class="question" id="agency" data-show="persona=proxy">
             <div class="wrap">
-                <h3>Product type</h3>
-                <p>I need...</p>
+                <h3>Agency role</h3>
+                <p>How your company is engaged with the lender.</p>
             </div>
             <div class="options">
-                <button class="option active">Refinance</button>
-                <button class="option">Home Purchase</button>
-                <button class="option">Home Equity</button>
+                <button class="option" data-value="aor" data-next="buyer">Agency of Record</button>
+                <button class="option" data-value="reseller" data-next="buyer">Reseller</button>
+            </div>
+        </div>
+
+        <div class="question" id="buyer" data-show="persona=proxy">
+            <div class="wrap">
+                <h3>Buying for</h3>
+                <p>Who will work the leads?</p>
+            </div>
+            <div class="options">
+                <button class="option" data-value="ind" data-next="pii_agency">Individual</button>
+                <button class="option" data-value="team" data-next="team_proxy">Team</button>
+            </div>
+        </div>
+
+        <div class="question" id="scope" data-show="persona=lender">
+            <div class="wrap">
+                <h3>Buyer scope</h3>
+                <p>Tell us if this is just for you or your team.</p>
+            </div>
+            <div class="options">
+                <button class="option" data-value="self" data-next="sales_self">Myself</button>
+                <button class="option" data-value="team" data-next="team">My Team</button>
+            </div>
+        </div>
+
+        <div class="question" id="sales_self" data-show="scope=self">
+            <div class="wrap">
+                <h3>Sales model</h3>
+                <p>Choose the structure that matches your operation.</p>
+            </div>
+            <div class="options">
+                <button class="option" data-value="broker" data-next="leads_self">Mortgage Broker</button>
+                <button class="option" data-value="retail" data-next="lender_self">Retail Branch</button>
+            </div>
+        </div>
+
+        <div class="question" id="team" data-show="scope=team">
+            <div class="wrap">
+                <h3>Team type</h3>
+                <p>Select the team structure.</p>
+            </div>
+            <div class="options">
+                <button class="option" data-value="corp" data-next="lo_corp">Corporate</button>
+                <button class="option" data-value="branch" data-next="lo_branch">Branch</button>
+                <button class="option" data-value="net_branch" data-next="lo_branch">Net Branch</button>
+            </div>
+        </div>
+
+        <div class="question" id="lo_branch" data-show="team=branch,team=net_branch">
+            <div class="wrap">
+                <h3>LOs on team</h3>
+                <p>Approximate count of active LOs.</p>
+            </div>
+            <div class="options">
+                <button class="option" data-value="2_3" data-next="sales_branch">2–3</button>
+                <button class="option" data-value="4_6" data-next="sales_branch">4–6</button>
+                <button class="option" data-value="7_9" data-next="sales_branch">7–9</button>
+                <button class="option" data-value="10_19" data-next="sales_branch">10–19</button>
+                <button class="option" data-value="20_plus" data-next="sales_branch">20+</button>
+            </div>
+        </div>
+
+        <div class="question" id="sales_branch" data-show="team=branch,team=net_branch">
+            <div class="wrap">
+                <h3>Sales model</h3>
+                <p>Pick the model used by this team.</p>
+            </div>
+            <div class="options">
+                <button class="option" data-value="broker" data-next="leads_branch_b">Mortgage Broker</button>
+                <button class="option" data-value="retail" data-next="lender_branch">Retail Branch</button>
+                <button class="option" data-value="direct" data-next="lender_branch">Consumer Direct</button>
+            </div>
+        </div>
+
+        <div class="question" id="lo_corp" data-show="team=corp">
+            <div class="wrap">
+                <h3>LOs on team</h3>
+                <p>Approximate count of active LOs.</p>
+            </div>
+            <div class="options">
+                <button class="option" data-value="2_3" data-next="sales_corp">2–3</button>
+                <button class="option" data-value="4_6" data-next="sales_corp">4–6</button>
+                <button class="option" data-value="7_9" data-next="sales_corp">7–9</button>
+                <button class="option" data-value="10_19" data-next="sales_corp">10–19</button>
+                <button class="option" data-value="20_plus" data-next="sales_corp">20+</button>
+            </div>
+        </div>
+
+        <div class="question" id="sales_corp" data-show="team=corp">
+            <div class="wrap">
+                <h3>Sales model</h3>
+                <p>Pick the model used by your organization.</p>
+            </div>
+            <div class="options">
+                <button class="option" data-value="broker" data-next="leads_corp_b">Mortgage Broker</button>
+                <button class="option" data-value="retail" data-next="lender_corp">Retail Branch</button>
+                <button class="option" data-value="direct" data-next="lender_corp">Consumer Direct</button>
+            </div>
+        </div>
+
+        <div class="question" id="team_proxy" data-show="buyer=team">
+            <div class="wrap">
+                <h3>Team type</h3>
+                <p>How is the lender’s team structured?</p>
+            </div>
+            <div class="options">
+                <button class="option" data-value="corp" data-next="sales_proxy">Corporate</button>
+                <button class="option" data-value="branch" data-next="sales_proxy">Branch</button>
+            </div>
+        </div>
+
+        <div class="question" id="sales_proxy" data-show="buyer=team">
+            <div class="wrap">
+                <h3>Lender model</h3>
+                <p>Pick the model used by the lender you represent.</p>
+            </div>
+            <div class="options">
+                <button class="option" data-value="broker" data-next="lo_proxy">Mortgage Broker</button>
+                <button class="option" data-value="retail" data-next="lo_proxy">Retail Branch</button>
+                <button class="option" data-value="direct" data-next="lo_proxy">Consumer Direct</button>
+            </div>
+        </div>
+
+        <div class="question" id="lo_proxy" data-show="buyer=team">
+            <div class="wrap">
+                <h3>LOs on team</h3>
+                <p>Approximate count of active LOs.</p>
+            </div>
+            <div class="options">
+                <button class="option" data-value="2_3" data-next="pii_agency">2–3</button>
+                <button class="option" data-value="4_6" data-next="pii_agency">4–6</button>
+                <button class="option" data-value="7_9" data-next="pii_agency">7–9</button>
+                <button class="option" data-value="10_19" data-next="pii_agency">10–19</button>
+                <button class="option" data-value="20_plus" data-next="pii_agency">20+</button>
+            </div>
+        </div>
+
+        <div class="question" id="leads_self" data-show="sales_self=broker">
+            <div class="wrap">
+                <h3>Buying leads?</h3>
+                <p>Your current acquisition programs, if any.</p>
+            </div>
+            <div class="options">
+                <button class="option" data-value="no" data-next="prev_self">No</button>
+                <button class="option" data-value="yes" data-next="pii_self">Yes</button>
+            </div>
+        </div>
+
+        <div class="question" id="leads_branch_b" data-show="sales_branch=broker">
+            <div class="wrap">
+                <h3>Buying leads?</h3>
+                <p>For your branch or net branch team.</p>
+            </div>
+            <div class="options">
+                <button class="option" data-value="no" data-next="prev_branch">No</button>
+                <button class="option" data-value="yes" data-next="pii_branch">Yes</button>
+            </div>
+        </div>
+
+        <div class="question" id="leads_corp_b" data-show="sales_corp=broker">
+            <div class="wrap">
+                <h3>Buying leads?</h3>
+                <p>For your corporate org.</p>
+            </div>
+            <div class="options">
+                <button class="option" data-value="no" data-next="prev_corp">No</button>
+                <button class="option" data-value="yes" data-next="pii_corp">Yes</button>
+            </div>
+        </div>
+
+        <div class="question" id="lender_self" data-show="sales_self=retail">
+            <div class="wrap">
+                <h3>Lender type</h3>
+                <p>Select the closest fit.</p>
+            </div>
+            <div class="options">
+                <button class="option" data-value="banker" data-next="leads_self_nb">Mortgage Banker</button>
+                <button class="option" data-value="corr" data-next="leads_self_nb">Correspondent</button>
+                <button class="option" data-value="mini_corr" data-next="leads_self_nb">Mini Correspondent</button>
+                <button class="option" data-value="portfolio" data-next="leads_self_nb">Portfolio</button>
+                <button class="option" data-value="federal" data-next="leads_self_nb">Federally Chartered</button>
+                <button class="option" data-value="wholesale" data-next="leads_self_nb">Wholesale</button>
+                <button class="option" data-value="other" data-next="leads_self_nb">Other</button>
+            </div>
+        </div>
+
+        <div class="question" id="leads_self_nb" data-show="lender_self=*">
+            <div class="wrap">
+                <h3>Buying leads?</h3>
+                <p>Your current acquisition programs, if any.</p>
+            </div>
+            <div class="options">
+                <button class="option" data-value="yes" data-next="pii_self">Yes</button>
+                <button class="option" data-value="no" data-next="prev_self">No</button>
+            </div>
+        </div>
+
+        <div class="question" id="lender_branch" data-show="sales_branch=retail,sales_branch=direct">
+            <div class="wrap">
+                <h3>Lender type</h3>
+                <p>Select the closest fit.</p>
+            </div>
+            <div class="options">
+                <button class="option" data-value="banker" data-next="leads_branch_nb">Mortgage Banker</button>
+                <button class="option" data-value="corr" data-next="leads_branch_nb">Correspondent</button>
+                <button class="option" data-value="mini_corr" data-next="leads_branch_nb">Mini Correspondent</button>
+                <button class="option" data-value="portfolio" data-next="leads_branch_nb">Portfolio</button>
+                <button class="option" data-value="federal" data-next="leads_branch_nb">Federally Chartered</button>
+                <button class="option" data-value="wholesale" data-next="leads_branch_nb">Wholesale</button>
+                <button class="option" data-value="other" data-next="leads_branch_nb">Other</button>
+            </div>
+        </div>
+
+        <div class="question" id="leads_branch_nb" data-show="lender_branch=*">
+            <div class="wrap">
+                <h3>Buying leads?</h3>
+                <p>For your branch or net branch team.</p>
+            </div>
+            <div class="options">
+                <button class="option" data-value="yes" data-next="pii_branch">Yes</button>
+                <button class="option" data-value="no" data-next="prev_branch">No</button>
+            </div>
+        </div>
+
+        <div class="question" id="lender_corp" data-show="sales_corp=retail,sales_corp=direct">
+            <div class="wrap">
+                <h3>Lender type</h3>
+                <p>Select the closest fit.</p>
+            </div>
+            <div class="options">
+                <button class="option" data-value="banker" data-next="leads_corp_nb">Mortgage Banker</button>
+                <button class="option" data-value="corr" data-next="leads_corp_nb">Correspondent</button>
+                <button class="option" data-value="mini_corr" data-next="leads_corp_nb">Mini Correspondent</button>
+                <button class="option" data-value="portfolio" data-next="leads_corp_nb">Portfolio</button>
+                <button class="option" data-value="federal" data-next="leads_corp_nb">Federally Chartered</button>
+                <button class="option" data-value="wholesale" data-next="leads_corp_nb">Wholesale</button>
+                <button class="option" data-value="other" data-next="leads_corp_nb">Other</button>
+            </div>
+        </div>
+
+        <div class="question" id="leads_corp_nb" data-show="lender_corp=*">
+            <div class="wrap">
+                <h3>Buying leads?</h3>
+                <p>For your corporate org.</p>
+            </div>
+            <div class="options">
+                <button class="option" data-value="yes" data-next="pii_corp">Yes</button>
+                <button class="option" data-value="no" data-next="prev_corp">No</button>
+            </div>
+        </div>
+
+        <div class="question" id="prev_self" data-show="leads_self=no,leads_self_nb=no">
+            <div class="wrap">
+                <h3>Bought before?</h3>
+                <p>Past programs or trials.</p>
+            </div>
+            <div class="options">
+                <button class="option" data-value="yes" data-next="pii_self">Yes</button>
+                <button class="option" data-value="no" data-next="pii_self">No</button>
+            </div>
+        </div>
+
+        <div class="question" id="prev_branch" data-show="leads_branch_b=no,leads_branch_nb=no">
+            <div class="wrap">
+                <h3>Bought before?</h3>
+                <p>For your branch team historically.</p>
+            </div>
+            <div class="options">
+                <button class="option" data-value="yes" data-next="pii_branch">Yes</button>
+                <button class="option" data-value="no" data-next="pii_branch">No</button>
+            </div>
+        </div>
+
+        <div class="question" id="prev_corp" data-show="leads_corp_b=no,leads_corp_nb=no">
+            <div class="wrap">
+                <h3>Bought before?</h3>
+                <p>For your corporate org historically.</p>
+            </div>
+            <div class="options">
+                <button class="option" data-value="yes" data-next="pii_corp">Yes</button>
+                <button class="option" data-value="no" data-next="pii_corp">No</button>
+            </div>
+        </div>
+
+        <div class="question" id="pii_self" data-show="leads_self=yes,prev_self=*,leads_self_nb=yes">
+            <div class="wrap">
+                <h3>Your details</h3>
+                <p>We’ll use this to personalize your program.</p>
+            </div>
+            <div class="data">
+                <div class="wrap">
+                    <label class="required" for="company_name_individual">Company Name</label>
+                    <input type="text" id="company_name_individual" name="company_name_individual" placeholder="Company Name" />
+                </div>
+                <div class="wrap">
+                    <label class="required" for="full_name_individual">Full Name</label>
+                    <input type="text" id="full_name_individual" name="full_name_individual" placeholder="Full Name" />
+                </div>
+                <div class="wrap">
+                    <label class="required" for="title_individual">Title</label>
+                    <input type="text" id="title_individual" name="title_individual" placeholder="Title" />
+                </div>
+                <div class="wrap">
+                    <label class="required" for="email_individual">Email Address</label>
+                    <input type="email" id="email_individual" name="email_individual" placeholder="Email Address" />
+                </div>
+                <div class="wrap">
+                    <label class="required" for="phone_individual">Direct Phone Number</label>
+                    <input type="tel" id="phone_individual" name="phone_individual" placeholder="Direct Phone Number" />
+                </div>
+                <div class="wrap">
+                    <label class="required" for="nmls_company_id_individual">NMLS Company ID</label>
+                    <input type="text" id="nmls_company_id_individual" name="nmls_company_id_individual" placeholder="NMLS Company ID" />
+                </div>
+                <div class="wrap">
+                    <label class="required" for="nmls_individual">Individual NMLS ID</label>
+                    <input type="text" id="nmls_individual" name="nmls_individual" placeholder="Individual NMLS ID" />
+                </div>
+            </div>
+        </div>
+
+        <div class="question" id="pii_corp">
+            <div class="wrap">
+                <h3>Corp contact</h3>
+                <p>Primary point of contact for your organization.</p>
+            </div>
+            <div class="data">
+                <div class="wrap">
+                    <label class="required" for="company_name_corp">Company Name</label>
+                    <input type="text" id="company_name_corp" name="company_name_corp" placeholder="Company Name" />
+                </div>
+                <div class="wrap">
+                    <label class="required" for="full_name_corp">Full Name</label>
+                    <input type="text" id="full_name_corp" name="full_name_corp" placeholder="Full Name" />
+                </div>
+                <div class="wrap">
+                    <label class="required" for="title_corp">Title</label>
+                    <input type="text" id="title_corp" name="title_corp" placeholder="Title" />
+                </div>
+                <div class="wrap">
+                    <label class="required" for="email_corp">Email Address</label>
+                    <input type="email" id="email_corp" name="email_corp" placeholder="Email Address" />
+                </div>
+                <div class="wrap">
+                    <label class="required" for="phone_corp">Direct Phone Number</label>
+                    <input type="tel" id="phone_corp" name="phone_corp" placeholder="Direct Phone Number" />
+                </div>
+                <div class="wrap">
+                    <label class="required" for="nmls_company_id_corp">NMLS Company ID</label>
+                    <input type="text" id="nmls_company_id_corp" name="nmls_company_id_corp" placeholder="NMLS Company ID" />
+                </div>
+            </div>
+        </div>
+
+        <div class="question" id="pii_branch">
+            <div class="wrap">
+                <h3>Branch contact</h3>
+                <p>Primary point of contact for your branch.</p>
+            </div>
+            <div class="data">
+                <div class="wrap">
+                    <label class="required" for="company_name_branch">Company Name</label>
+                    <input type="text" id="company_name_branch" name="company_name_branch" placeholder="Company Name" />
+                </div>
+                <div class="wrap">
+                    <label class="required" for="full_name_branch">Full Name</label>
+                    <input type="text" id="full_name_branch" name="full_name_branch" placeholder="Full Name" />
+                </div>
+                <div class="wrap">
+                    <label class="required" for="title_branch">Title</label>
+                    <input type="text" id="title_branch" name="title_branch" placeholder="Title" />
+                </div>
+                <div class="wrap">
+                    <label class="required" for="email_branch">Email Address</label>
+                    <input type="email" id="email_branch" name="email_branch" placeholder="Email Address" />
+                </div>
+                <div class="wrap">
+                    <label class="required" for="phone_branch">Direct Phone Number</label>
+                    <input type="tel" id="phone_branch" name="phone_branch" placeholder="Direct Phone Number" />
+                </div>
+                <div class="wrap">
+                    <label class="required" for="nmls_company_id_branch">NMLS Company ID</label>
+                    <input type="text" id="nmls_company_id_branch" name="nmls_company_id_branch" placeholder="NMLS Company ID" />
+                </div>
+                <div class="wrap">
+                    <label class="required" for="nmls_branch_id">NMLS Branch ID</label>
+                    <input type="text" id="nmls_branch_id" name="nmls_branch_id" placeholder="NMLS Branch ID" />
+                </div>
+            </div>
+        </div>
+
+        <div class="question" id="pii_agency" data-show="persona=proxy">
+            <div class="wrap">
+                <h3>Agency contact</h3>
+                <p>Contact info for the agency or reseller representative.</p>
+            </div>
+            <div class="data">
+                <div class="wrap">
+                    <label class="required" for="agency_company_name">Your Company Name</label>
+                    <input type="text" id="agency_company_name" name="agency_company_name" placeholder="Your Company Name" />
+                </div>
+                <div class="wrap">
+                    <label class="required" for="agency_contact_name">Your Full Name</label>
+                    <input type="text" id="agency_contact_name" name="agency_contact_name" placeholder="Your Full Name" />
+                </div>
+                <div class="wrap">
+                    <label class="required" for="agency_title">Title</label>
+                    <input type="text" id="agency_title" name="agency_title" placeholder="Title" />
+                </div>
+                <div class="wrap">
+                    <label for="agency_email">Email Address</label>
+                    <input type="email" id="agency_email" name="agency_email" placeholder="Email Address" />
+                </div>
+                <div class="wrap">
+                    <label class="required" for="agency_phone">Direct Phone Number</label>
+                    <input type="tel" id="agency_phone" name="agency_phone" placeholder="Direct Phone Number" />
+                </div>
+            </div>
+        </div>
+        <div class="question" id="homesvc_type" data-show="prod=homesvc">
+            <div class="wrap">
+                <h3>Home service</h3>
+                <p>Select the category you’re interested in.</p>
+            </div>
+            <div class="options">
+                <button class="option" data-value="solar">Solar</button>
+                <button class="option" data-value="purchase">Home Purchase</button>
+                <button class="option" data-value="equity">Home Equity</button>
             </div>
         </div>
         <nav>
-            <button class="action">Continue</button>
+            <button class="back" id="back" type="button">
+                <i class="fa-regular fa-arrow-left"></i>
+            </button>
+            <button class="action" id="next" type="button">Continue</button>
         </nav>
     </form>
 </body>
