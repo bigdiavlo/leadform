@@ -501,14 +501,23 @@ function selectOptions(root = document) {
         const multi = grp.dataset.choice === 'multiple';
         if (multi) {
             opt.classList.toggle('active');
-            const vals = Array.from(grp.querySelectorAll('.option.active')).map(b => b.dataset.value);
-            state[q.id] = vals;
-        } else {
-            grp.querySelectorAll('.option.active').forEach(el => el.classList.remove('active'));
-            opt.classList.add('active');
-            state[q.id] = opt.dataset.value;
+            state[q.id] = Array.from(grp.querySelectorAll('.option.active')).map(b => b.dataset.value);
+            setNextBtn();
+            return;
         }
-        updateNextUI();
+        grp.querySelectorAll('.option.active').forEach(el => el.classList.remove('active'));
+        opt.classList.add('active');
+        state[q.id] = opt.dataset.value;
+        const id = opt.dataset.next;
+        if (id) {
+            const el = byId(id);
+            if (el && canShow(el)) {
+                hist.push(cur.id);
+                show(el);
+                return;
+            }
+        }
+        setNextBtn();
     });
 }
 
@@ -520,53 +529,53 @@ function parseShow(expr) {
     });
 }
 
-function testShow(q) {
-    const need = parseShow(q.getAttribute('data-show'));
-    if (!need.length) return true;
-    return need.some(({ k, v }) => {
-        const cur = state[k];
-        if (v === '*') return Array.isArray(cur) ? cur.length > 0 : !!cur;
-        if (Array.isArray(cur)) return cur.includes(v);
-        return cur === v;
+function canShow(q) {
+    const req = parseShow(q.getAttribute('data-show'));
+    if (!req.length) return true;
+    return req.some(({ k, v }) => {
+        const curv = state[k];
+        if (v === '*') return Array.isArray(curv) ? curv.length > 0 : !!curv;
+        if (Array.isArray(curv)) return curv.includes(v);
+        return curv === v;
     });
 }
 
-function firstVisible() {
-    for (let i = 0; i < qs.length; i++) if (testShow(qs[i])) return qs[i];
+function firstVis() {
+    for (let i = 0; i < qs.length; i++) if (canShow(qs[i])) return qs[i];
     return null;
 }
 
-function showOne(q) {
+function show(q) {
     qs.forEach(el => el.style.display = el === q ? '' : 'none');
     cur = q;
     back.style.display = hist.length ? '' : 'none';
-    updateNextUI();
+    setNextBtn();
 }
 
-function getActiveOpt(q) {
+function activeOpt(q) {
     return q.querySelector('[data-group] .option.active');
 }
 
-function explicitNextId(q) {
-    const a = getActiveOpt(q);
-    return a ? a.dataset.next || null : null;
+function explicitNext() {
+    const a = activeOpt(cur);
+    const id = a ? a.dataset.next || null : null;
+    if (!id) return null;
+    const el = byId(id);
+    return el && canShow(el) ? id : null;
 }
 
-function nextCandidateId() {
-    const id = explicitNextId(cur);
-    if (id) {
-        const el = byId(id);
-        if (el && testShow(el)) return id;
-    }
+function nextId() {
+    const id = explicitNext();
+    if (id) return id;
     let i = qs.indexOf(cur) + 1;
     while (i < qs.length) {
-        if (testShow(qs[i])) return qs[i].id;
+        if (canShow(qs[i])) return qs[i].id;
         i++;
     }
     return null;
 }
 
-function validateCurrent() {
+function valid() {
     const grp = cur.querySelector('[data-group]');
     if (grp) {
         const multi = grp.dataset.choice === 'multiple';
@@ -586,25 +595,25 @@ function validateCurrent() {
 }
 
 function onNext() {
-    if (!validateCurrent()) return;
-    const id = nextCandidateId();
+    if (!valid()) return;
+    const id = nextId();
     if (!id) {
         if (next.type !== 'submit') next.type = 'submit';
         form.requestSubmit ? form.requestSubmit() : form.submit();
         return;
     }
     hist.push(cur.id);
-    showOne(byId(id));
+    show(byId(id));
 }
 
 function onBack() {
     if (!hist.length) return;
     const id = hist.pop();
-    showOne(byId(id));
+    show(byId(id));
 }
 
-function updateNextUI() {
-    const id = nextCandidateId();
+function setNextBtn() {
+    const id = nextId();
     if (id) {
         next.type = 'button';
         next.textContent = 'Continue';
@@ -614,7 +623,7 @@ function updateNextUI() {
     }
 }
 
-function seedState() {
+function seed() {
     qs.forEach(q => {
         const grp = q.querySelector('[data-group]');
         if (!grp) return;
@@ -635,16 +644,15 @@ function init() {
     next = byId('next');
     qs = Array.from(form.querySelectorAll('.question'));
     selectOptions(form);
-    seedState();
+    seed();
     hist = [];
-    const start = firstVisible() || qs[0];
-    showOne(start);
+    const start = firstVis() || qs[0];
+    show(start);
     back.addEventListener('click', onBack);
     next.addEventListener('click', e => { if (next.type === 'button') onNext(); });
 }
 
 let form, back, next, qs = [], cur = null, hist = [], state = {};
 init();
-
 </script>
 </html>
