@@ -16,7 +16,7 @@
                 <p>Choose what you’re looking for today.</p>
             </div>
             <div class="choose" data-group>
-                <button type="button" class="option active" data-value="mort" data-next="mort_type">Mortgage</button>
+                <button type="button" class="option" data-value="mort" data-next="mort_type">Mortgage</button>
                 <button type="button" class="option" data-value="homesvc" data-next="homesvc_type">Home services</button>
             </div>
         </div>
@@ -491,24 +491,160 @@
     </form>
 </body>
 <script>
-
 function selectOptions(root = document) {
     root.addEventListener('click', e => {
         const opt = e.target.closest('.option');
         if (!opt || !root.contains(opt)) return;
-        const grp = opt.closest('[data-group]') || opt.parentElement;
-        if (!grp) return;
+        const grp = opt.closest('[data-group]');
+        const q = opt.closest('.question');
+        if (!grp || !q) return;
         const multi = grp.dataset.choice === 'multiple';
         if (multi) {
             opt.classList.toggle('active');
+            const vals = Array.from(grp.querySelectorAll('.option.active')).map(b => b.dataset.value);
+            state[q.id] = vals;
         } else {
-            grp.querySelectorAll('.option.active').forEach(el => el !== opt && el.classList.remove('active'));
+            grp.querySelectorAll('.option.active').forEach(el => el.classList.remove('active'));
             opt.classList.add('active');
+            state[q.id] = opt.dataset.value;
         }
+        updateNextUI();
     });
 }
 
-selectOptions(document.getElementById('b2b'));
+function parseShow(expr) {
+    if (!expr) return [];
+    return expr.split(',').map(s => s.trim()).filter(Boolean).map(t => {
+        const i = t.indexOf('=');
+        return i === -1 ? { k: t, v: '' } : { k: t.slice(0, i).trim(), v: t.slice(i + 1).trim() };
+    });
+}
+
+function testShow(q) {
+    const need = parseShow(q.getAttribute('data-show'));
+    if (!need.length) return true;
+    return need.some(({ k, v }) => {
+        const cur = state[k];
+        if (v === '*') return Array.isArray(cur) ? cur.length > 0 : !!cur;
+        if (Array.isArray(cur)) return cur.includes(v);
+        return cur === v;
+    });
+}
+
+function firstVisible() {
+    for (let i = 0; i < qs.length; i++) if (testShow(qs[i])) return qs[i];
+    return null;
+}
+
+function showOne(q) {
+    qs.forEach(el => el.style.display = el === q ? '' : 'none');
+    cur = q;
+    back.style.display = hist.length ? '' : 'none';
+    updateNextUI();
+}
+
+function getActiveOpt(q) {
+    return q.querySelector('[data-group] .option.active');
+}
+
+function explicitNextId(q) {
+    const a = getActiveOpt(q);
+    return a ? a.dataset.next || null : null;
+}
+
+function nextCandidateId() {
+    const id = explicitNextId(cur);
+    if (id) {
+        const el = byId(id);
+        if (el && testShow(el)) return id;
+    }
+    let i = qs.indexOf(cur) + 1;
+    while (i < qs.length) {
+        if (testShow(qs[i])) return qs[i].id;
+        i++;
+    }
+    return null;
+}
+
+function validateCurrent() {
+    const grp = cur.querySelector('[data-group]');
+    if (grp) {
+        const multi = grp.dataset.choice === 'multiple';
+        const act = grp.querySelectorAll('.option.active').length;
+        return multi ? act > 0 : act === 1;
+    }
+    const reqByLabel = Array.from(cur.querySelectorAll('label.required')).map(l => byId(l.getAttribute('for'))).filter(Boolean);
+    const reqInputs = Array.from(cur.querySelectorAll('input[required], textarea[required], select[required]'));
+    const inputs = Array.from(new Set([...reqByLabel, ...reqInputs]));
+    for (const inp of inputs) {
+        if (!inp.value || String(inp.value).trim() === '') {
+            inp.focus();
+            return false;
+        }
+    }
+    return true;
+}
+
+function onNext() {
+    if (!validateCurrent()) return;
+    const id = nextCandidateId();
+    if (!id) {
+        if (next.type !== 'submit') next.type = 'submit';
+        form.requestSubmit ? form.requestSubmit() : form.submit();
+        return;
+    }
+    hist.push(cur.id);
+    showOne(byId(id));
+}
+
+function onBack() {
+    if (!hist.length) return;
+    const id = hist.pop();
+    showOne(byId(id));
+}
+
+function updateNextUI() {
+    const id = nextCandidateId();
+    if (id) {
+        next.type = 'button';
+        next.textContent = 'Continue';
+    } else {
+        next.type = 'submit';
+        next.textContent = 'Submit';
+    }
+}
+
+function seedState() {
+    qs.forEach(q => {
+        const grp = q.querySelector('[data-group]');
+        if (!grp) return;
+        const multi = grp.dataset.choice === 'multiple';
+        const act = Array.from(grp.querySelectorAll('.option.active')).map(b => b.dataset.value);
+        if (multi) state[q.id] = act;
+        else if (act[0]) state[q.id] = act[0];
+    });
+}
+
+function byId(id) {
+    return document.getElementById(id);
+}
+
+function init() {
+    form = byId('b2b');
+    back = byId('back');
+    next = byId('next');
+    qs = Array.from(form.querySelectorAll('.question'));
+    selectOptions(form);
+    seedState();
+    hist = [];
+    const start = firstVisible() || qs[0];
+    showOne(start);
+    back.addEventListener('click', onBack);
+    next.addEventListener('click', e => { if (next.type === 'button') onNext(); });
+}
+
+let form, back, next, qs = [], cur = null, hist = [], state = {};
+init();
 
 </script>
 </html>
