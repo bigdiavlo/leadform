@@ -73,6 +73,11 @@ button {
     transition: all .4s ease;
 }
 
+button:focus {
+    outline: 0;
+    box-shadow: 0;
+}
+
 nav {
     position: fixed;
     display: flex;
@@ -81,11 +86,11 @@ nav {
     left: 0;
     right: 0;
     gap: 10px;
-    width: 360px;
+    width: 425px;
     height: 80px;
     z-index: 666;
     margin: 0 auto;
-    padding: 0 16px;
+    padding: 0 24px;
     background-color: #fff;
 }
 
@@ -93,10 +98,10 @@ form {
     display: flex;
     align-items: stretch;
     flex-direction: column;
-    width: 360px;
+    width: 425px;
     height: auto;
     gap: 40px;
-    padding: 40px 16px;
+    padding: 40px 24px;
     margin-bottom: 80px;
 }
 
@@ -195,10 +200,6 @@ form {
     transition: all .3s ease;
 }
 
-.option:active {
-    background-color: transparent;
-}
-
 .option:hover {
     background-color: #fafafa;
 }
@@ -247,7 +248,7 @@ input::placeholder {
     color: #999;
 }
 
-@media only screen and (max-width: 360px) {
+@media only screen and (max-width: 425px) {
 
     form {
         width: 100%;
